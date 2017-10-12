@@ -36,10 +36,10 @@ export default class FormField extends Component {
     } = this.props;
     return (
       <View>
-        <View style={{ paddingHorizontal: 15, paddingVertical: 5 }}>
+        <View>
           <Text style={{ fontWeight: '500', fontSize: 17 }}>{attributes.label}</Text>
         </View>
-        <View style={{ paddingHorizontal: 10 }}>
+        <View>
           <GenerateForm
             ref={(c) => { this.group = c; }}
             onValueChange={this.onValueChange}
