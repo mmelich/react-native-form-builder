@@ -159,6 +159,7 @@ export default class DatePickerField extends Component {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
+          onPress={attributes.mode === 'time' ? this.showTimePicker : this.showDatePicker}
           >
             <Text style={{ color: theme.labelActiveColor }}>{attributes.label}</Text>
             <View
