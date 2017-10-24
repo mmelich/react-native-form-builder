@@ -39,18 +39,21 @@ export default class FormField extends Component {
         <View>
           <Text style={{ fontWeight: '500', fontSize: 17 }}>{attributes.label}</Text>
         </View>
-        <View>
-          <GenerateForm
-            ref={(c) => { this.group = c; }}
-            onValueChange={this.onValueChange}
-            autoValidation={autoValidation}
-            customValidation={customValidation}
-            customComponents={customComponents}
-            showErrors
-            fields={attributes.fields}
-            theme={theme}
-          />
-        </View>
+        <Text style={{ color: '#ed2f2f', marginLeft: 15 }}>
+          {attributes.errorMsg}
+        </Text>
+          <View>
+            <GenerateForm
+              ref={(c) => { this.group = c; }}
+              onValueChange={this.onValueChange}
+              autoValidation={autoValidation}
+              customValidation={customValidation}
+              customComponents={customComponents}
+              showErrors
+              fields={attributes.fields}
+              theme={theme}
+            />
+          </View>
       </View>
     );
   }
