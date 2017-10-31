@@ -10,7 +10,6 @@ import FormField from '../fields/form';
 import baseTheme from '../theme';
 import { autoValidate, getInitState, getDefaultValue, getResetValue } from '../utils/methods';
 
-
 export default class FormBuilder extends Component {
   static propTypes = {
     fields: React.PropTypes.array,
@@ -56,6 +55,12 @@ export default class FormBuilder extends Component {
   componentDidMount() {
     const { formData } = this.props;
     this.setValues(formData);
+  }
+  componentWillReceiveProps(nextProps) {
+    const nextState = getInitState(nextProps.fields);
+    this.setState({
+      ...nextState
+    });
   }
   onSummitTextInput(name) {
     const index = Object.keys(this.state).indexOf(name);
@@ -289,7 +294,7 @@ export default class FormBuilder extends Component {
   }
   render() {
     return (
-      <KeyboardAwareScrollView
+      <View
         keyboardShouldPersistTaps="always"
         extraScrollHeight={20}
         {...this.props.scrollViewProps}
@@ -297,7 +302,7 @@ export default class FormBuilder extends Component {
         <View>
           {this.generateFields() || <View />}
         </View>
-      </KeyboardAwareScrollView>
+      </View>
 
     );
   }
