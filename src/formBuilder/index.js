@@ -58,9 +58,11 @@ export default class FormBuilder extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const nextState = getInitState(nextProps.fields);
+    const { formData } = this.props;
     this.setState({
-      ...nextState
+      ...nextState,
     });
+    this.setValues(formData);
   }
   onSummitTextInput(name) {
     const index = Object.keys(this.state).indexOf(name);
