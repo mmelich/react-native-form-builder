@@ -8,7 +8,7 @@ import DateField from '../fields/date';
 import SelectField from '../fields/select';
 import FormField from '../fields/form';
 import baseTheme from '../theme';
-import { autoValidate, getInitState, getUpdatedState, getDefaultValue, getResetValue } from '../utils/methods';
+import { autoValidate, getInitState, getDefaultValue, getResetValue } from '../utils/methods';
 
 export default class FormBuilder extends Component {
   static propTypes = {
@@ -57,17 +57,28 @@ export default class FormBuilder extends Component {
     this.setValues(formData);
   }
   componentWillReceiveProps(nextProps) {
-    const nextState = getUpdatedState(nextProps.fields);
+    const nextState = this.updateState(nextProps.fields);
     const { formData } = this.props;
     this.setState({
       ...nextState,
     });
     this.setValues(formData);
   }
+  updateState(fields) {
+    const state = {};
+    _.forEach(fields, (field) => {
+      const fieldObj = field;
+      if (!field.hidden && field.type) {
+        fieldObj.value = this.state[field.name].value || getDefaultValue(field);
+        state[field.name] = fieldObj;
+      }
+    });
+    return state;
+  }
   onSummitTextInput(name) {
     const index = Object.keys(this.state).indexOf(name);
     if (index !== -1 && this[Object.keys(this.state)[index + 1]]
-    && this[Object.keys(this.state)[index + 1]].textInput) {
+        && this[Object.keys(this.state)[index + 1]].textInput) {
       this[Object.keys(this.state)[index + 1]].textInput._root.focus();
     } else {
       Keyboard.dismiss();
@@ -83,7 +94,7 @@ export default class FormBuilder extends Component {
       }
       // Validate through customValidation if it is present in props
       if (this.props.customValidation
-         && typeof this.props.customValidation === 'function') {
+          && typeof this.props.customValidation === 'function') {
         Object.assign(valueObj, this.props.customValidation(valueObj));
       }
       const newField = {};
@@ -158,20 +169,28 @@ export default class FormBuilder extends Component {
     if (field.type === 'group') {
       const subFields = {};
       Object.keys(value).forEach((fieldName) => {
-        subFields[fieldName] = value[fieldName];
+        if (this.state[fieldName]) {
+          subFields[fieldName] = this.state[fieldName].value || value[fieldName];
+        } else {
+          subFields[fieldName] = value[fieldName];
+        }
       });
       this[field.name].group.setValues(subFields);
       field.value = this[field.name].group.getValues();
       // Remaing thing is error Handling Here
     } else {
-      field.value = value;
-        // also check for errors
+      if(this.state[field.name]) {
+        field.value = this.state[field.name].value || value;
+      } else {
+        field.value = value;
+      }
+      // also check for errors
       if (this.props.autoValidation === undefined || this.props.autoValidation) {
         Object.assign(field, autoValidate(field));
       }
-        // Validate through customValidation if it is present in props
+      // Validate through customValidation if it is present in props
       if (this.props.customValidation
-           && typeof this.props.customValidation === 'function') {
+          && typeof this.props.customValidation === 'function') {
         Object.assign(field, this.props.customValidation(field));
       }
     }
@@ -199,8 +218,8 @@ export default class FormBuilder extends Component {
       const field = this.state[fieldName];
       if (field) {
         field.value = (field.editable !== undefined && !field.editable) ?
-          getDefaultValue(field) :
-          getResetValue(field);
+                      getDefaultValue(field) :
+                      getResetValue(field);
         field.error = false;
         field.errorMsg = '';
         if (field.type === 'group') {
