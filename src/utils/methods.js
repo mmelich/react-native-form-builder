@@ -140,3 +140,14 @@ export function getInitState(fields) {
   });
   return state;
 }
+
+export function getUpdatedState(fields) {
+  const state = {};
+  _.forEach(fields, (field) => {
+    const fieldObj = field;
+    if (!field.hidden && field.type) {
+      state[field.name] = fieldObj;
+    }
+  });
+  return state;
+}

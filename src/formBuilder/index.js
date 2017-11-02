@@ -8,7 +8,7 @@ import DateField from '../fields/date';
 import SelectField from '../fields/select';
 import FormField from '../fields/form';
 import baseTheme from '../theme';
-import { autoValidate, getInitState, getDefaultValue, getResetValue } from '../utils/methods';
+import { autoValidate, getInitState, getUpdatedState, getDefaultValue, getResetValue } from '../utils/methods';
 
 export default class FormBuilder extends Component {
   static propTypes = {
@@ -57,7 +57,7 @@ export default class FormBuilder extends Component {
     this.setValues(formData);
   }
   componentWillReceiveProps(nextProps) {
-    const nextState = getInitState(nextProps.fields);
+    const nextState = getUpdatedState(nextProps.fields);
     const { formData } = this.props;
     this.setState({
       ...nextState,
