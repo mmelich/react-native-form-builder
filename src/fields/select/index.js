@@ -15,14 +15,15 @@ import {
   Title,
   Button,
 } from 'native-base';
+import PropTypes from 'prop-types';
 
 const deviceWidth = Dimensions.get('window').width;
 
 export default class SelectField extends Component {
   static propTypes = {
-    attributes: React.PropTypes.object,
-    updateValue: React.PropTypes.func,
-    theme: React.PropTypes.object,
+    attributes: PropTypes.object,
+    updateValue: PropTypes.func,
+    theme: PropTypes.object,
   }
   constructor(props) {
     super(props);

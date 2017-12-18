@@ -3,16 +3,17 @@ import { View, Text } from 'native-base';
 import I18n from 'react-native-i18n';
 import { Platform, DatePickerIOS, DatePickerAndroid, TouchableOpacity, TimePickerAndroid } from 'react-native';
 import Panel from '../../components/panel';
+import PropTypes from 'prop-types';
 
 export default class DatePickerField extends Component {
   static defaultProps = {
     timeZoneOffsetInHours: (-1) * ((new Date()).getTimezoneOffset() / 60),
   };
   static propTypes = {
-    attributes: React.PropTypes.object,
-    updateValue: React.PropTypes.func,
-    timeZoneOffsetInHours: React.PropTypes.number,
-    theme: React.PropTypes.object,
+    attributes: PropTypes.object,
+    updateValue: PropTypes.func,
+    timeZoneOffsetInHours: PropTypes.number,
+    theme: PropTypes.object,
   }
   constructor(props) {
     super(props);

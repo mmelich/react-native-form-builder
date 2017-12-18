@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PropTypes from 'prop-types';
 import TextInputField from '../fields/textInput';
 import PickerField from '../fields/picker';
 import SwitchField from '../fields/switch';
@@ -12,14 +13,14 @@ import { autoValidate, getInitState, getDefaultValue, getResetValue } from '../u
 
 export default class FormBuilder extends Component {
   static propTypes = {
-    fields: React.PropTypes.array,
-    theme: React.PropTypes.object,
-    scrollViewProps: React.PropTypes.object,
-    customComponents: React.PropTypes.object,
-    formData: React.PropTypes.object,
-    autoValidation: React.PropTypes.bool,
-    customValidation: React.PropTypes.func,
-    onValueChange: React.PropTypes.func,
+    fields: PropTypes.array,
+    theme: PropTypes.object,
+    scrollViewProps: PropTypes.object,
+    customComponents: PropTypes.object,
+    formData: PropTypes.object,
+    autoValidation: PropTypes.bool,
+    customValidation: PropTypes.func,
+    onValueChange: PropTypes.func,
   }
   constructor(props) {
     super(props);

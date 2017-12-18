@@ -3,13 +3,14 @@ import { View, Text } from 'native-base';
 import { Platform, Picker, TouchableOpacity } from 'react-native';
 import Panel from '../../components/panel';
 import styles from './../../styles';
+import PropTypes from 'prop-types';
 
 const Item = Picker.Item;
 export default class PickerField extends Component {
   static propTypes = {
-    attributes: React.PropTypes.object,
-    theme: React.PropTypes.object,
-    updateValue: React.PropTypes.func,
+    attributes: PropTypes.object,
+    theme: PropTypes.object,
+    updateValue: PropTypes.func,
   }
   handleChange(value) {
     const attributes = this.props.attributes;
