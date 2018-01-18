@@ -38,7 +38,7 @@
       "print-message": "^2.1.0",
       "prop-types": "^15.6.0",
       "react-native-i18n": "^1.0.0",
-      "react-native-keyboard-aware-scroll-view": "^0.2.7"
+      "react-native-keyboard-aware-scroll-view": "git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git#f4805f254d6cc8e3329f5fb224944401f66655db"
    },
    "devDependencies": {
       "react": "15.4.2",
